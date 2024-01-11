@@ -21,6 +21,13 @@ bool canPlace(int num,int row,int col){
 }
 bool solveSudoku(int i,int j){
     if(i>=8 && j>=9){
+        cout << "Solved : " << endl;
+        for(int x=0;x<9;x++){
+            for(int y=0;y<9;y++){
+                cout << board[x][y] << " ";
+            }
+            cout << endl;
+        }
             return true;    
     }
     if(j>=9){

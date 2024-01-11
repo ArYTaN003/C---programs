@@ -10,8 +10,12 @@ void helper(vector<int>& arr,int curr,int cost,int& ans){
 }
 int main()
 {
-    int a = stoi("123");
-    cout << a << endl;
+    vector<string> arr = {"5","4","600","549"};
+    sort(arr.begin(),arr.end());
+    for(int i=0;i<arr.size();i++){
+        cout << arr[i] << endl;
+    }
+    //cout << a << endl;
     return 0;
 }
 

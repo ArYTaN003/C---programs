@@ -1,17 +1,17 @@
 #include <iostream>
 #include<vector>
 using namespace std;
-int max_profit(vector<int>& cost,vector<int>& weight,int n,int m,int index,vector<vector<int>>& dp){
+int max_profit(vector<int>& cost,vector<int>& weight,int n,int m,int index,vector<int>& dp){
     if(m==0 || index==n){
         return 0;
     }
-    if(dp[index][m]!=-1) return dp[index][m];
+    if(dp[m]!=-1) return dp[m];
     int include=INT_MIN,exclude=INT_MIN;
     if(m-weight[index]>=0){
         include=cost[index]+max_profit(cost,weight,n,m-weight[index],index+1,dp);
     }
     exclude = max_profit(cost,weight,n,m,index+1,dp);
-    return dp[index][m]=max(include,exclude);
+    return dp[m]=max(include,exclude);
 }
 int main(){
     int n,m;
@@ -25,7 +25,7 @@ int main(){
         cin >> weight[i];
     }
     cin >> m;
-    vector<vector<int>> dp(n,vector<int>(m+1,-1));
+    vector<int> dp(m+1,-1);
     cout << max_profit(cost,weight,n,m,0,dp) << endl;
     return 0;
 }

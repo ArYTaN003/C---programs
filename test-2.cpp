@@ -1,36 +1,40 @@
-#include<bits/stdc++.h>
-#define ll long long
+#include <bits/stdc++.h>
 using namespace std;
-void tan(){
-     ll n,k;
-    cin >> n >> k;
-    ll pos;
-    vector<ll> health(n);
-    map<ll,ll> mp;
-    for(int i=0;i<n;i++){
-    	cin >> health[i];
+
+string rearrange_string(string s) {
+    int n = s.length();
+    vector<int> count(26, 0);
+    for (char c : s) {
+        count[c - 'a']++;
     }
-    for(int i=0;i<n;i++){
-    	cin >> pos;
-    	mp[abs(pos)]+=health[i];
+    vector<pair<int, int>> freq;
+    for (int i = 0; i < 26; i++) {
+        if (count[i] > 0) {
+            freq.push_back({i, count[i]});
+        }
     }
-    ll b_left = k;
-   	for(int i=1;i<=n;i++){
-   		if(b_left<mp[i]){
-   			cout << "no" << endl;
-   			return ;
-   		}
-   		b_left-=mp[i];
-   		b_left+=k;
-   	}
-   	cout << "yes" << endl;
-   	
+    sort(freq.begin(), freq.end(), [](const pair<int, int>& a, const pair<int, int>& b) {
+        return a.second > b.second;
+    });
+    string res(n, '0');
+    int index = 0;
+    for (auto& [f, cnt] : freq) {
+    for (int i = index; i < n; i += 2) {
+        if (cnt > 0) {
+            res[i] = char(f + 'a');
+            int cnt_copy = cnt; // create a copy of cnt
+            cnt_copy--; // decrement the copy
+            cnt = cnt_copy; // update the original cnt
+            index++;
+        }
+    }
+    if (index == n && cnt > 0) {
+        return "impossible";
+    }
+}
+    return res;
 }
 int main(){
-    int t;
-    cin >> t;
-    for(int i=0;i<t;i++){
-    	tan();
-    }
-    return 0;
+    string s = "aaba";
+    cout << rearrange_string(s) << endl;
 }

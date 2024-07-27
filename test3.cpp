@@ -1,43 +1,35 @@
-/*
-     ∞
-   MaCTaN 
-     ∞
-Aryan S Tandon
-Keep Going On, Keep Coding 
-Never Stop Flowing
-*/
 #include<bits/stdc++.h>
 using namespace std;
-void rec(vector<int>&a,vector<int>&b,int i,int j,vector<int>&temp,vector<vector<int>>& out){
-    if(i==a.size() || b.size()==j) return ;
-    if(temp.size()>0 && temp.back()>a[i]){
-        rec(a,b,i+1,j,temp,out);
-        return ;
-    } 
-    // cout << a[i] << " " << b[j] << endl;
-    if(a[i]<b[j]){
-       temp.push_back(a[i]);
-       temp.push_back(b[j]);
-       out.push_back(temp);
-       rec(a,b,i+1,j+1,temp,out); 
-       temp.pop_back();
-       temp.pop_back();
-    }
-    rec(a,b,i,j+1,temp,out);
+int mod = 1e9+7;
+/*
+recursive/memoization
+
+int getWays(int n,vector<int>& dp){
+  if(n<=1) return 1;
+  if(dp[n]!=-1) return dp[n];
+  int ans = 0;
+  // cout << n << endl;
+
+  for(int i=1;i<=6 && n-i>=0;i++){
+    ans = (ans+getWays(n-i,dp))%mod;
+  }
+  return dp[n]=ans;
+
 }
-int main(){
-    int m=3,n=4;
-    vector<int> a={10,15,25};
-    vector<int> b={1,5,20,30};
-    vector<vector<int>> out;
-    vector<int> temp;
-    for(int i=0;i<m;i++){
-        rec(a,b,i,0,temp,out);
-    }                             
-    for(int i=0;i<out.size();i++){
-        for(int j=0;j<out[i].size();j++){
-            cout << out[i][j] << " ";
-        }
-        cout << endl;
-    }                                                                                                          
-}                                                                      
+*/
+int main()
+{
+  
+  int n;
+  cin >> n;
+  vector<int> dp(n+1,0);
+  // dp[i] -> Number of ways to get sum i
+  dp[0] = 1;
+  for(int i=1;i<=n;i++){
+    for(int j =1;i-j>=0 && j<=6;j++){
+      dp[i]=(dp[i]+dp[i-j])%mod;
+    }
+  }
+  cout << dp[n] << endl;
+  return 0;
+}
